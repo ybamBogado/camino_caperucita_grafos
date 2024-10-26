@@ -44,9 +44,47 @@ namespace tp7
 	
 
 		public void DFS(Vertice<T> origen) {
+  			//lista buleanos visitado
+     			bool [] visitados= new bool[this.vertices.Count];
+     			this._DFS(origen, visitados);
+			
+		}
+  		private void DFS(Vertice<T> origen) {
+  			//procesar origen
+     			Console.WriteLine(origen.getDato()+" ");
+			//marcamos origen como visitado
+   			visitados[origen.getPosicion()-1]=true;
+			//ver adyacentes, adyacentes es una arista 
+   			//por lo que trae origen y destino, necesitamos solo destino
+      			foreach(var ady in origen.getAdyacentes())
+	 		//si no fue visitado adyacente llamada recursiva
+     				if(!visitados[ady.getDestino().getPosicion()-1])
+	 				this._DFS(origen, visitados);
 		}
 		
 		public void BFS(Vertice<T> origen) {
+  			//lista buleanos visitado
+     			bool [] visitados= new bool[this.vertices.Count];
+			Cola<Vertice<T>> c= new Cola<Vertice<T>>();
+   			Vertice<T> vertAux;
+      			//
+	 		c.encolar(origen);
+    			visitados[origen.getPosicion() -1]= true;
+       			//imprimir dato origen
+	  		while(!c.esVacia()){
+     				vertAux=c.desencolar();
+	 			Console.WriteLine(vertAux.getDato()+ "");
+     				//ver los adyacentes
+	 			foreach(var ady in vertAux.getAdyacentes()){
+     				//revisar si el vertice fue visitado
+	 				if(!visitados[ady.getDestino().getPosicion() -1]){
+      				//guardo el dato de ady en c
+	    					c.encolar(ady.getDestino());
+	  			//marco ady como visitado
+      						visitados[ady.getDestino().getPosicion() -1]=true;
+					}
+				}
+			}
 		}
 
         //metodo actividad buscar camino que no tenga aristas mayores a maxFrutales
