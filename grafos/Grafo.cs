@@ -49,7 +49,7 @@ namespace tp7
      			this._DFS(origen, visitados);
 			
 		}
-  		private void DFS(Vertice<T> origen) {
+  		private void DFS(Vertice<T> origen, bool [] visitados) {
   			//procesar origen
      			Console.WriteLine(origen.getDato()+" ");
 			//marcamos origen como visitado
